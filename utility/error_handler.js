@@ -1,6 +1,6 @@
-const response_structure=require('./response_structure.js')
+const response_structure = require('./response_structure.js')
 
-class handler extends Error{
+class ValidationError extends Error {
     constructor(message) {
         super(message);
         this.name = this.constructor.name;
@@ -8,20 +8,14 @@ class handler extends Error{
 
 }
 
-// class PropertyRequiredError extends ValidationError {
-//     constructor(property) {
-//       super("No property: " + property);
-//       this.name = "PropertyRequiredError";
-//       this.property = property;
-//     }
-// }
+const error = (err, req, res, next) => {
+    let result = {}
+    if (err instanceof ValidationError) {
+        result = response_structure.response([], false, "raman" + err.message)
+    }
+    else if (err instanceof Error) {
+        result = response_structure.response([], false, err.message)
 
-
-const error=(err,req,res,next)=>{
-    let result={}
-    if (err instanceof Error){
-        result=response_structure.response([],false,err.message)
-        
     }
     res.status(400).send(result)
 }
@@ -30,4 +24,4 @@ const error=(err,req,res,next)=>{
 
 
 
-module.exports={error}
+module.exports = { error, ValidationError }

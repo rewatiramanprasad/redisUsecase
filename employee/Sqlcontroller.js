@@ -1,9 +1,18 @@
 const error_handler=require('../utility/error_handler.js')
 
 const db = require('../utility/db.js');
+async function login(email,password) {
+    let query = 'select * from empuser where email=$1 and password_md5=$2'
+    let value=[email,password]
+    let result = await db.execute_with_parameter(query,value)
+    console.log(result);
+    return result.rows
 
-async function get_all() {
-    let query = 'select * from employee'
+    
+}
+
+async function getAll() {
+    let query = 'SELECT * FROM employee ORDER BY id ASC'
     
     let result = await db.execute(query)
     return result
@@ -11,7 +20,7 @@ async function get_all() {
     
 }
 
-async function get_by_id(id) {
+async function getById(id) {
     let query = 'select * from employee where department=$1'
     let value = [id]
     
@@ -20,7 +29,7 @@ async function get_by_id(id) {
     
 }
 
-async function add_employee(value) {
+async function addEmployee(value) {
     let query = 'insert into employee values($1,$2,$3,$4,$5,$6)'
    
         const result = await db.execute_with_parameter(query, value)
@@ -28,16 +37,15 @@ async function add_employee(value) {
     
 }
 
-async function delete_employee(id) {
+async function deleteEmployee(id) {
     let query = 'DELETE FROM employee WHERE id=$1'
     let value = [id]
-
-        const result = await db.execute_with_parameter(query, value)
-        return result
+    const result = await db.execute_with_parameter(query, value)
+    return result
    
 }
 
-async function update_employee(columname, newvalue, id) {
+async function updateEmployee(columname, newvalue, id) {
     let value = [newvalue, id]
     let query = ''
     if (columname == 'name') {
@@ -66,4 +74,4 @@ async function update_employee(columname, newvalue, id) {
 
 
 
-module.exports = { get_all, get_by_id, add_employee, delete_employee, update_employee }
+module.exports = { getAll, getById, addEmployee, deleteEmployee, updateEmployee,login }
