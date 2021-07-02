@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const { ValidationError } = require('../utility/error_handler');
+const { ValidationError } = require('../utility/errorHandler');
 
 
 const isValidLoginCredential = async (data, next) => {

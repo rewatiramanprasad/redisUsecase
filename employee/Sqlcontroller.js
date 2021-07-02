@@ -1,10 +1,10 @@
-const error_handler=require('../utility/error_handler.js')
+const error_handler=require('../utility/errorHandler.js')
 
 const db = require('../utility/db.js');
 async function login(email,password) {
     let query = 'select * from empuser where email=$1 and password_md5=$2'
     let value=[email,password]
-    let result = await db.execute_with_parameter(query,value)
+    let result = await db.executeWithParameter(query,value)
     console.log(result);
     return result.rows
 
@@ -24,7 +24,7 @@ async function getById(id) {
     let query = 'select * from employee where department=$1'
     let value = [id]
     
-        const result = await db.execute_with_parameter(query, value)
+        const result = await db.executeWithParameter(query, value)
         return result.rows
     
 }
@@ -32,7 +32,7 @@ async function getById(id) {
 async function addEmployee(value) {
     let query = 'insert into employee values($1,$2,$3,$4,$5,$6)'
    
-        const result = await db.execute_with_parameter(query, value)
+        const result = await db.executeWithParameter(query, value)
         return result.rows
     
 }
@@ -40,7 +40,7 @@ async function addEmployee(value) {
 async function deleteEmployee(id) {
     let query = 'DELETE FROM employee WHERE id=$1'
     let value = [id]
-    const result = await db.execute_with_parameter(query, value)
+    const result = await db.executeWithParameter(query, value)
     return result
    
 }

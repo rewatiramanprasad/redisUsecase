@@ -21,7 +21,7 @@ const execute = async function (query) {
 
 }
 
-const execute_with_parameter = async function (query, value) {
+const executeWithParameter = async function (query, value) {
     const client = connection()
     client.connect()
     const result = await client.query(query, value);
@@ -31,4 +31,4 @@ const execute_with_parameter = async function (query, value) {
 
 }
 
-module.exports = { execute, execute_with_parameter }
+module.exports = { execute, executeWithParameter }

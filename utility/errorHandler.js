@@ -1,4 +1,4 @@
-const response_structure = require('./response_structure.js')
+const responseStructure = require('./responseStructure.js')
 
 class ValidationError extends Error {
     constructor(message) {
@@ -11,10 +11,10 @@ class ValidationError extends Error {
 const error = (err, req, res, next) => {
     let result = {}
     if (err instanceof ValidationError) {
-        result = response_structure.response([], false, "raman" + err.message)
+        result = responseStructure.response([], false, "raman" + err.message)
     }
     else if (err instanceof Error) {
-        result = response_structure.response([], false, err.message)
+        result = responseStructure.response([], false, err.message)
 
     }
     res.status(400).send(result)
