@@ -17,7 +17,7 @@ const error = (err, req, res, next) => {
         result = responseStructure.response([], false, err.message)
 
     }
-    res.status(400).send(result)
+    res.status(400).send(result).end()
 }
 
 

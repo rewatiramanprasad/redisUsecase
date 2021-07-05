@@ -1,12 +1,19 @@
-const error_handler=require('../utility/errorHandler.js')
-
+const {ValidationError}=require('../utility/errorHandler.js')
 const db = require('../utility/db.js');
-async function login(email,password) {
-    let query = 'select * from empuser where email=$1 and password_md5=$2'
-    let value=[email,password]
+
+
+async function login(emp_id,password,next) {
+    let query = 'select * from empuser where emp_id=$1 and password_md5=$2'
+    let value=[emp_id,password]
     let result = await db.executeWithParameter(query,value)
-    console.log(result);
-    return result.rows
+    if (result.rows.length==1){
+        return result.rows
+    }
+    else{
+        
+        next(new ValidationError('wrong combination of id and password'))
+        return []
+    }
 
     
 }
@@ -66,7 +73,7 @@ async function updateEmployee(columname, newvalue, id) {
     console.log(query, columname, id, newvalue);
 
     
-        const result = await db.execute_with_parameter(query, value)
+        const result = await db.executeWithParameter(query, value)
         //console.log("controller"+result.rowCount);
         return result
     

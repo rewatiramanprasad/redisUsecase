@@ -1,3 +1,4 @@
+const { valid } = require('joi');
 const Joi = require('joi');
 const { ValidationError } = require('../utility/errorHandler');
 
@@ -5,21 +6,23 @@ const { ValidationError } = require('../utility/errorHandler');
 const isValidLoginCredential = async (data, next) => {
     console.log(data);
     const schema = Joi.object({
-        email: Joi.string()
+        emp_id: Joi.string()
+            .pattern(new RegExp('E{1}[0-9]{3}'))
             .alphanum()
-            .min(3)
-            .max(30)
+            .min(4)
+            .max(4)
             .required(),
         password: Joi.string().required()
         //.pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'))
     })
+    const valid = await schema.validate(data)
 
-    try {
-        const valid = await schema.validate(data)
-        return
+    if (valid.error) {
+        console.log(valid.error);
+        next(new ValidationError(valid.error))
     }
-    catch (e) {
-        next(new ValidationError(e))
+    else {
+        return
     }
 
 }
@@ -91,7 +94,8 @@ const isValidUpdateId = (data, next) => {
         return
     }
 }
-const isValidInsertion = (data, next) => {
+const isValidInsertion =async (data, next) => {
+    console.log(data);
     const schema = Joi.object({
         id: Joi.string()
             .pattern(new RegExp('E{1}[0-9]{3}'))
@@ -106,8 +110,8 @@ const isValidInsertion = (data, next) => {
             .min(4)
             .max(4)
             .required(),
-        gender: Joi.string().required().pattern(new RegExp('M|F')),
-        active: Joi.string().required(),
+        gender: Joi.string().required().valid('M','F'),//.pattern(new RegExp('M|F')),
+        active: Joi.any().required().valid('0','1'),//.pattern(new RegExp('0|1')),
         role_id: Joi.string()
             .pattern(new RegExp('R{1}[0-9]{3}'))
             .alphanum()
@@ -115,12 +119,12 @@ const isValidInsertion = (data, next) => {
             .max(4)
             .required()
     })
-    const valid = schema.validate(data)
+    const valid = await schema.validate(data)
     if (valid.error) {
         next(new ValidationError(valid.error))
     }
     else {
-        return
+        return valid
     }
 }
 module.exports = { isValidGetById, isValidDeleteId, isValidUpdateId, isValidInsertion, isValidLoginCredential }

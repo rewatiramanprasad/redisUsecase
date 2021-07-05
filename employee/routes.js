@@ -4,11 +4,11 @@ const router = express.Router()
 
 
 router.get('/login', controller.login)
-router.get('/get_all', controller.getAll)
-router.get('/get_by_id', controller.getById)
-router.post('/add_employee', controller.addEmployee)
-router.put('/update_employee', controller.updateEmployee)
-router.delete('/delete_employee', controller.deleteEmployee)
+router.get('/getAll', controller.getAll)
+router.get('/getById', controller.getById)
+router.post('/addEmployee', controller.addEmployee)
+router.put('/updateEmployee', controller.updateEmployee)
+router.delete('/deleteEmployee', controller.deleteEmployee)
 
 
 module.exports = router
