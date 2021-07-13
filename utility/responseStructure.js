@@ -6,7 +6,7 @@ function response(result, flag, message = '', user = '') {
     }
     if (flag == true) {
         response.data = result
-        response.message = result.length + " rows fetched"
+        response.message = "No of PostalOffices found"+result.length;
         response.sucess = flag
         if (message.length != 0) {
             response.message = message
