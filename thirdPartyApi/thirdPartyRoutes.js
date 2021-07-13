@@ -4,7 +4,7 @@ const controller = require('./thirdPartyController.js')
 
 
 thirdPartyRouter.get('/thirdPartyApi/axios/:postalCode', controller.postalWithAxiom)
-thirdPartyRouter.get('/thirdPartyApi/node_fetch/:postalCode', controller.postalWithNodeFetch)
+thirdPartyRouter.get('/thirdPartyApi/nodeFetch/:postalCode', controller.postalWithNodeFetch)
 
 
 
