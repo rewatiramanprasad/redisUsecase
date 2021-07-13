@@ -1,20 +1,16 @@
 const axios = require('axios');
 const { json } = require('body-parser');
 const node_fetch = require('node-fetch');
-<<<<<<< HEAD
 const redis = require("redis");
 const client = redis.createClient();
+const data = require('../config/config.json');
+const { response } = require('../utility/responseStructure.js');
 
 
 client.on("error", function(error) {
     console.error(error);
   });
 
-=======
-const redis = require('redis');
-const data = require('../config/config.json');
-const { response } = require('../utility/responseStructure.js');
->>>>>>> 28ca3a506dbe65bb36b79a28ba8760b1773c92a2
 
 const postalWithAxiom = async (req, res, next) => {
     let { postalCode } = req.params
