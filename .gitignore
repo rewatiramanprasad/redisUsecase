@@ -3,4 +3,4 @@ example/
 node_modules/
 config/config.json
 dump.rdb
-.package-lock.json
+package-lock.json
