@@ -9,4 +9,4 @@ app.use(thirdPartyRouter)
 app.use(err.error)
 
 
-app.listen(5000, () => { console.log(`running on port http://${data['host']}:${data['port']}`) });
+app.listen(data.port, () => { console.log(`running on port http://${data['host']}:${data['port']}`) });
