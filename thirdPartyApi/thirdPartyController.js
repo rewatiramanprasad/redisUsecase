@@ -21,7 +21,7 @@ const postalWithAxiom = async (req, res, next) => {
 
         const data = await axios.get(url)
         const result=JSON.stringify(data.data[0])
-        client.set(postalCode,result,redis.print)
+        client.setex(postalCode,10,result)
         res.status(200).send(data.data[0]).end()
 
     }
@@ -40,7 +40,7 @@ const postalWithNodeFetch = async (req, res, next) => {
         .then(respond => respond.json())
         .then((result) =>{ //console.log(result[0]);
                            let data=JSON.stringify(result[0]);
-                            client.set(postalCode,data,redis.print);
+                            client.setex(postalCode,10,data);
                             res.status(200).send(result[0]).end();
                         })
         .catch(err => next(err));
